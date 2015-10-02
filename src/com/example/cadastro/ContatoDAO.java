@@ -21,7 +21,7 @@ public class ContatoDAO extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String ddl = "CREATE TABLE " + TABELA
-				+ " (id INTEGER PRIMARY KEY,nome TEXT UNIQUE NOT NULL);";
+				+ " (id INTEGER PRIMARY KEY,nome TEXT UNIQUE NOT NULL,telefone TEXT);";
 
 		db.execSQL(ddl);
 
@@ -39,13 +39,14 @@ public class ContatoDAO extends SQLiteOpenHelper {
 	public void salva(Contato contato) {
 		ContentValues values = new ContentValues();
 		values.put("nome", contato.getNome());
+		values.put("telefone", contato.getTelefone());
 
 		getWritableDatabase().insert(TABELA, null, values);
 
 	}
 
 	public List<Contato> getLista() {
-		String[] colunas = { "id", "nome" };
+		String[] colunas = { "id", "nome", "telefone" };
 		Cursor cursor = getWritableDatabase().query(TABELA, colunas, null,
 				null, null, null, null);
 
@@ -56,6 +57,7 @@ public class ContatoDAO extends SQLiteOpenHelper {
 
 			contato.setId(cursor.getLong(0));
 			contato.setNome(cursor.getString(1));
+			contato.setTelefone(cursor.getString(2));
 
 			contatos.add(contato);
 		}
@@ -71,6 +73,7 @@ public class ContatoDAO extends SQLiteOpenHelper {
 	public void alterar(Contato aluno) {
 		ContentValues values = new ContentValues();
 		values.put("nome", aluno.getNome());
+		values.put("telefone", aluno.getTelefone());
 
 		String[] args = { aluno.getId().toString() };
 		getWritableDatabase().update(TABELA, values, "id=?", args);

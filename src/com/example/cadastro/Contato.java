@@ -8,6 +8,7 @@ public class Contato implements Serializable{
 	
 	private Long id;
 	private String nome;
+	private String telefone;
 	
 	
 	public Long getId() {
@@ -21,6 +22,12 @@ public class Contato implements Serializable{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	
 	
